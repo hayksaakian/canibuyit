@@ -22,7 +22,7 @@ class Product
   	# doc = Nokogiri::HTML(response)
   	# response = doc.xpath('SOMEXPATH').to_s
   	# regex to see if the page contains 'sold out' anywhere
-  	if response =~ /Sold Out/im
+  	if response =~ /Sold Out/im or response =~ /sold-out/im
   		#sold out does exist
   		self.update_attribute(:available, false)
   		return false
