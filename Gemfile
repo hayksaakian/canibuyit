@@ -16,8 +16,8 @@ gem "delayed_job_mongoid", "~> 1.0.8"
 gem "foreman"
 
 # gem 'feedzirra'
-# gem 'nokogiri'
-# gem 'httparty'
+gem 'nokogiri'
+gem 'httparty'
 # gem 'domainatrix', :require => 'domainatrix'
 
 # gem 'geo_location'

@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<h2><%= @product.name %></h2>
+<% if @product.available %>
+<h4>is <%= link_to 'available', @product.url %></h4>
+<% else %>
+<h4>is unavailable...</h4>
+<% end %>
+
+
+
+<%= link_to 'Edit', edit_product_path(@product) %> |
+<%= link_to 'Back', products_path %>
