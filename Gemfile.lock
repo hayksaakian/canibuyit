@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/digitalplaywright/mongoid-slug.git
+  revision: 7f99b27b26d460a5e12bba9accccd1dd215073c8
+  ref: 7f99b27b26d460a5e12bba9accccd1dd215073c8
+  specs:
+    mongoid_slug (0.10.0)
+      mongoid (~> 2.0)
+      stringex (~> 1.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -135,6 +144,7 @@ GEM
       hike (~> 1.2)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
+    stringex (1.4.0)
     thin (1.5.0)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -165,6 +175,7 @@ DEPENDENCIES
   jquery-rails
   mongo
   mongoid (~> 2.4.0)
+  mongoid_slug!
   nokogiri
   rails (= 3.1.0)
   rest-client

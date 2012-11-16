@@ -6,6 +6,9 @@ gem 'thin'
 gem "mongoid", "~> 2.4.0"
 gem "bson_ext", "1.6.2"
 gem "mongo"
+#version which specifically supports mongoid 2
+gem 'mongoid_slug', git: "git://github.com/digitalplaywright/mongoid-slug.git",
+      ref: "7f99b27b26d460a5e12bba9accccd1dd215073c8"
 # gem 'mongoid_fulltext', "~> 0.5"
 # gem "will_paginate_mongoid", "~> 1.0.0"
 # gem "will_paginate", "~> 3.0.3"

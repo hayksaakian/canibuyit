@@ -5,9 +5,8 @@
 <h4>is <%= link_to 'available', @product.url %></h4>
 <% else %>
 <h4>is unavailable...</h4>
+<small><%= link_to 'check for yourself', @product.url %> if you don't believe me</small>
 <% end %>
-
-
-
+<br>
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>
