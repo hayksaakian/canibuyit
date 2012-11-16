@@ -1,15 +1,58 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Can I buy it?</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= analytics_init if Rails.env.production? %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Can I Buy It?" %></title>
+    <meta name="description" content="tell me when i can buy it">
+    <meta name="author" content="Hayk Saakian">
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+    <%= analytics_init if Rails.env.production? %>
+    <%= yield(:head) %>
+  </head>
 
-<%= yield %>
+  <body>
+    <header class="navbar navbar-inverse navbar-fixed-top">
+      <nav class="navbar-inner">
+        <div class="container-fluid">
+          <span class='brand'><%= link_to_unless_current 'Can I Buy a Nexus 4?', root_url %></span>
+          <div class='pull-right'>
+            <ul class="nav">
+              <!-- <li><%#= link_to 'Update viewer counts',update_counts_path %></li> -->
+              <li><%= link_to 'Can I Buy Other Things?', products_path %></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
 
-</body>
+    </header>
+    <div id="main" role="main">
+      <div class="container">
+        <div class="content">
+           <div class="row">
+            <div class="span12">      
+              <%= yield %>
+              <script type="text/javascript"><!--
+google_ad_client = "ca-pub-9515182789223023";
+/* Canibuyanexus4.info banner */
+google_ad_slot = "3556843639";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+            </div>
+          </div>
+        </div>
+          <footer>
+            <br>
+            by <%= link_to "Hayk Saakian", "http://twitter.com/hayksaakian" %>
+          </footer>
+      </div> <!--! end of .container -->
+    </div> <!--! end of #main -->
+  </body>
 </html>
