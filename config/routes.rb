@@ -1,6 +1,6 @@
 Canibuyit::Application.routes.draw do
   resources :products
-  root :to => 'products#index'
+  root :to => 'products#nexus4'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

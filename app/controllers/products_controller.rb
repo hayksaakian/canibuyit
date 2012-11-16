@@ -21,6 +21,15 @@ class ProductsController < ApplicationController
     end
   end
 
+  def nexus4
+    @product = Product.find('nexus-4')
+    @product.check_available
+    respond_to do |format|
+      format.html { redirect_to @product }
+      format.json { render json: @product }
+    end
+  end
+
   # GET /products/new
   # GET /products/new.json
   def new
