@@ -16,6 +16,7 @@ gem "delayed_job_mongoid", "~> 1.0.8"
 gem "foreman"
 
 # gem 'feedzirra'
+gem 'rest-client'
 gem 'nokogiri'
 gem 'httparty'
 # gem 'domainatrix', :require => 'domainatrix'
