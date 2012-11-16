@@ -40,7 +40,7 @@ class Product
 		    :from => "notification@canibuyanexus4.info",
 		    :to => "hayk.saakian@gmail.com",
 		    :subject => self.name+" just became available",
-		    :text => "Buy it at "+self.url+" If you want to stop recieving notifications, submit your email at "+product_path(self, :only_path => false).to_s
+		    :text => "Buy it at "+self.url+" If you want to stop recieving notifications, submit your email at "+product_path(self, :host => 'canibuyanexus4.info', :only_path => false).to_s
 		end
   end
 end
