@@ -28,11 +28,10 @@ class Product
   	end
   end
 
+	require 'rest_client'
   def email
-  	require 'rest_client'
   	api_key = ENV['MAILGUN_API_KEY']
-		api_url = "https://api:"+api_key+\
-		"@api.mailgun.net/v2/mailgun.net"
+		api_url = "https://api:"+api_key+"@api.mailgun.net/v2/app9271104.mailgun.org"
 
 		RestClient.post api_url+"/messages", 
 	    :from => "ev@example.com",
