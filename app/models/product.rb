@@ -3,6 +3,7 @@ class Product
   field :name, :type => String
   field :available, :type => Boolean
   field :url, :type => String
+  slug :name
 
   def check_available
   	url = URI.parse(self.url) 
@@ -27,9 +28,10 @@ class Product
 
   def email
   	require 'rest_client'
-  	API_KEY = ENV['MAILGUN_API_KEY']
-		API_URL = "https://api:#{API_KEY}@api.mailgun.net/v2/mailgun.net"
-		RestClient.post API_URL+"/messages", 
+  	api_key = ENV['MAILGUN_API_KEY']
+		api_url = "https://api:#{api_key}@api.mailgun.net/v2/mailgun.net"
+
+		RestClient.post api_url+"/messages", 
 	    :from => "ev@example.com",
 	    :to => "hayk.saakian@gmail.com",
 	    :subject => "This is subject",
