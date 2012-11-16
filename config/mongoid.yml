@@ -1,0 +1,17 @@
+development:
+  host: localhost
+  database: canibuyit_development
+
+test:
+  host: localhost
+  database: canibuyit_test
+
+# set these environment variables on your prod server
+production:
+  uri: <%= ENV['MONGOLAB_URI'] %>
+  database: canibuyit_prod
+  # slaves: khghjghj
+  #   - host: slave1.local
+  #     port: 27018
+  #   - host: slave2.local
+  #     port: 27019
