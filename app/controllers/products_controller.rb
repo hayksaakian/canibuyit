@@ -6,7 +6,26 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @products }
+      # format.json { render json: @products }
+    end
+  end
+
+  def subscribe
+    @product = Product.find(params[:product_id])
+    @address = params[:email_address]
+    respond_to do |format|
+      if @address =~ /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/
+        if not @product.addresses.include?(@address)
+          @product.addresses.push(@address)
+          @product.save
+          notice = 'you\'ll get an email once it\'s available; to remove yourself from the list, submit your email again.'
+        else
+          notice = 'your address was already on the list, by submitting it again you removed it; to add it back submit it again.'
+        end
+        format.html { redirect_to @product, notice: notice }
+      else
+        format.html { redirect_to @product, notice: 'the sanity check does not think you provided an email address, check it and try again:' }
+      end
     end
   end
 
@@ -17,7 +36,7 @@ class ProductsController < ApplicationController
     @product.check_available
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @product }
+      # format.json { render json: @product }
     end
   end
 
@@ -26,7 +45,7 @@ class ProductsController < ApplicationController
     @product.check_available
     respond_to do |format|
       format.html { redirect_to @product }
-      format.json { render json: @product }
+      # format.json { render json: @product }
     end
   end
 
@@ -70,10 +89,10 @@ class ProductsController < ApplicationController
     respond_to do |format|
       if @product.update_attributes(params[:product])
         format.html { redirect_to @product, notice: 'Product was successfully updated.' }
-        format.json { head :ok }
+        # format.json { head :ok }
       else
         format.html { render action: "edit" }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
+        # format.json { render json: @product.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -86,7 +105,7 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to products_url }
-      format.json { head :ok }
+      # format.json { head :ok }
     end
   end
 end

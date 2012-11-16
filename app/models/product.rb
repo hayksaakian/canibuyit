@@ -1,10 +1,13 @@
+require 'open-uri'
 class Product
   include Mongoid::Document
   include Mongoid::Slug
+  include Rails.application.routes.url_helpers
 
   field :name, :type => String
   field :available, :type => Boolean
   field :url, :type => String
+  field :addresses, :type => Array, :default => []
   slug :name
 
   def check_available
@@ -29,14 +32,15 @@ class Product
   end
 
 	require 'rest_client'
-  def email
+  def tell_subscribers_available
   	api_key = ENV['MAILGUN_API_KEY']
 		api_url = "https://api:"+api_key+"@api.mailgun.net/v2/app9271104.mailgun.org"
-		RestClient.post api_url+"/messages", 
-	    :from => "notification@example.com",
-	    :to => "hayk.saakian@gmail.com",
-	    :subject => "This is subject",
-	    :text => "Text body",
-	    :html => "<b>HTML</b> version of the body!"
+		self.addresses.each do |address|
+			RestClient.post api_url+"/messages", 
+		    :from => "notification@canibuyanexus4.info",
+		    :to => "hayk.saakian@gmail.com",
+		    :subject => self.name+" just became available",
+		    :text => "Buy it at "+self.url+" If you want to stop recieving notifications, submit your email at "+product_path(self, :only_path => false).to_s
+		end
   end
 end

@@ -5,6 +5,14 @@
 <h4>is <%= link_to 'available', @product.url %></h4>
 <% else %>
 <h4>is unavailable...</h4>
+<%= form_tag(product_subscribe_path(@product)) do %>
+	<div class="field">
+    <%= label_tag :email_address %><br />
+    <%= text_field_tag :email_address %>
+  </div>
+  <div><%= submit_tag 'Email me when it is available' %></div>
+<% end -%>
+
 <small><%= link_to 'check for yourself', @product.url %> if you don't believe me</small>
 <% end %>
 <br>
