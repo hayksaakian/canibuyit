@@ -6,6 +6,7 @@ class Product
 
   field :name, :type => String
   field :available, :type => Boolean
+  field :prev_available, :type => Boolean
   field :url, :type => String
   field :addresses, :type => Array, :default => []
   slug :name
@@ -18,6 +19,8 @@ class Product
 		http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 		request = Net::HTTP::Get.new(url.request_uri)
   	response = http.request(request).body
+
+		self.update_attribute(:prev_available, self.available)
   	# don't actually need nokogiri here, a regex will work fine
   	# doc = Nokogiri::HTML(response)
   	# response = doc.xpath('SOMEXPATH').to_s
@@ -28,7 +31,17 @@ class Product
   		return false
   	else
   		self.update_attribute(:available, true)
+  		#only tell everyone if it was not previously available
+  		if self.prev_available != self.available
+  			self.tell_subscribers_available
+  		end
   		return true
+  	end
+  end
+
+  def self.update_availabilities
+  	Product.each do |pr|
+  		pr.delay.check_available
   	end
   end
 
@@ -44,4 +57,5 @@ class Product
 		    :text => "You can buy it at "+self.url+" . If you want to stop recieving notifications, submit your email at "+product_path(self, :host => 'canibuyanexus4.info', :only_path => false).to_s
 		end
   end
+  handle_asynchronously :tell_subscribers_available
 end
