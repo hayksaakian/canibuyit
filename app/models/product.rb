@@ -40,7 +40,7 @@ class Product
   end
 
   def self.update_availabilities
-  	Product.each do |pr|
+  	Product.all.each do |pr|
   		pr.delay.check_available
   	end
   end
