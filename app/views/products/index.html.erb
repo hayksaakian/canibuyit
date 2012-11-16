@@ -4,18 +4,17 @@
   <tr>
     <th>Name</th>
     <th>Available?</th>
-    <th>Url</th>
+    <th>Page to Check</th>
+<!--     <th></th>
     <th></th>
-    <th></th>
-    <th></th>
+    <th></th> -->
   </tr>
 
 <% @products.each do |product| %>
   <tr>
-    <td><%= product.name %></td>
+    <td><%= link_to product.name, product %></td>
     <td><%= product.available? %></td>
-    <td><%= product.url %></td>
-    <td><%= link_to 'Show', product %></td>
+    <td><%= link_to product.url, product.url %></td>
 <!--     <td><%#= link_to 'Edit', edit_product_path(product) %></td>
     <td><%#= link_to 'Destroy', product, confirm: 'Are you sure?', method: :delete %></td>
  -->  </tr>

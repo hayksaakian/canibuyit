@@ -32,9 +32,8 @@ class Product
   def email
   	api_key = ENV['MAILGUN_API_KEY']
 		api_url = "https://api:"+api_key+"@api.mailgun.net/v2/app9271104.mailgun.org"
-
 		RestClient.post api_url+"/messages", 
-	    :from => "ev@example.com",
+	    :from => "notification@example.com",
 	    :to => "hayk.saakian@gmail.com",
 	    :subject => "This is subject",
 	    :text => "Text body",
