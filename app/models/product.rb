@@ -21,6 +21,7 @@ class Product
   	# don't actually need nokogiri here, a regex will work fine
   	# doc = Nokogiri::HTML(response)
   	# response = doc.xpath('SOMEXPATH').to_s
+  	# regex to see if the page contains 'sold out' anywhere
   	if response =~ /Sold Out/im
   		#sold out does exist
   		self.update_attribute(:available, false)
@@ -38,9 +39,9 @@ class Product
 		self.addresses.each do |address|
 			RestClient.post api_url+"/messages", 
 		    :from => "notification@canibuyanexus4.info",
-		    :to => "hayk.saakian@gmail.com",
+		    :to => address,
 		    :subject => self.name+" just became available",
-		    :text => "Buy it at "+self.url+" If you want to stop recieving notifications, submit your email at "+product_path(self, :host => 'canibuyanexus4.info', :only_path => false).to_s
+		    :text => "You can buy it at "+self.url+" . If you want to stop recieving notifications, submit your email at "+product_path(self, :host => 'canibuyanexus4.info', :only_path => false).to_s
 		end
   end
 end
