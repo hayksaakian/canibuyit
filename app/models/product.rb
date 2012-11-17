@@ -5,7 +5,7 @@ class Product
   include Rails.application.routes.url_helpers
 
   field :name, :type => String
-  field :available, :type => Boolean
+  field :available, :type => Boolean, :default => false
   field :prev_available, :type => Boolean
   field :url, :type => String
   field :addresses, :type => Array, :default => []
