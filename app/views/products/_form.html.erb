@@ -19,6 +19,21 @@
     <%= f.label :url %><br />
     <%= f.text_field :url %>
   </div>
+  <div class='well'>
+    <p>If you want availability <strong>outside the US</strong>, provide a proxy ip address and a proxy port. 
+    </p>
+    <p>
+      <small>Otherwise availability may be innacurate.</small>
+    </p>
+    <div class="field">
+      <%= f.label :proxy_ip %><br />
+      <%= f.text_field :proxy_ip %>
+    </div>
+    <div class="field">
+      <%= f.label :proxy_port %><br />
+      <%= f.text_field :proxy_port %>
+    </div>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

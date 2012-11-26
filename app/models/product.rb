@@ -8,24 +8,36 @@ class Product
   field :available, :type => Boolean, :default => false
   field :prev_available, :type => Boolean
   field :url, :type => String
+  field :proxy_ip, :type => String
+  field :proxy_port, :type => String
   field :addresses, :type => Array, :default => []
   slug :name
 
+  # trying 195.102.23.53:80
+  # a UK proxy
+
   def check_available
+    self.update_attribute(:prev_available, self.available)
   	url = URI.parse(self.url) 
   	#extra BS because google's play redirects to a https url regardless
-  	http = Net::HTTP.new(url.host, url.port)
-		http.use_ssl = true
-		http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-		request = Net::HTTP::Get.new(url.request_uri)
-  	response = http.request(request).body
+    if self.proxy_port != nil and self.proxy_ip != nil
+      # puts 'using proxy'
+      doc = Nokogiri::HTML(open(url, :proxy => 'http://'+self.proxy_ip+':'+self.proxy_port))
 
-		self.update_attribute(:prev_available, self.available)
+      response = doc.to_s
+    else
+      # puts 'no proxy (using US ip)'
+      http = Net::HTTP.new(url.host, url.port)
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      request = Net::HTTP::Get.new(url.request_uri)
+      response = http.request(request).body      
+    end
   	# don't actually need nokogiri here, a regex will work fine
   	# doc = Nokogiri::HTML(response)
   	# response = doc.xpath('SOMEXPATH').to_s
   	# regex to see if the page contains 'sold out' anywhere
-  	if response =~ /Sold Out/im or response =~ /sold-out/im
+  	if response =~ /google/ and response =~ /Sold Out/im or response =~ /sold-out/im
   		#sold out does exist
   		self.update_attribute(:available, false)
   		return false
